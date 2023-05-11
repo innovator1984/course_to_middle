@@ -64,7 +64,7 @@ if __name__ == '__main__':
     )
 
     cap = cv2.VideoCapture(
-      f"uridecodebin uri=file://" + input_video + f"  ! videoconvert ! video/x-raw, format=BGRx, width=1280, height=720 ! videoconvert ! video/x-raw, format=BGR ! appsink sync=False", 
+      f"uridecodebin uri=file://" + opt.input_video + f"  ! videoconvert ! video/x-raw, format=BGRx, width=1280, height=720 ! videoconvert ! video/x-raw, format=BGR ! appsink sync=False", 
       cv2.CAP_GSTREAMER
     )
 
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)  # float `height`
 
     cap_write = cv2.VideoWriter(
-        output_video,
+        f'' + opt.output_video,
         cv2.VideoWriter_fourcc(*'avc1'),
         float(round(fps)),
         (int(736), int(512)),
