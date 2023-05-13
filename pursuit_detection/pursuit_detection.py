@@ -31,7 +31,8 @@ def parse_opt():
     parser.add_argument('--ocr-imgsz-h', type=int, default=224, help='inference ocr size height')
     parser.add_argument('--conf-thres', type=float, default=0.2, help='NMS confidence threshold')
     parser.add_argument('--iou-thres', type=float, default=0.2, help='NMS IoU threshold')
-
+    parser.add_argument('--input-video', type=str, default='in.mp4', help='input video')
+    parser.add_argument('--output-video', type=str, default='out.mp4', help='output video')
     parser.add_argument('--alphabet', type=str, default='0123456789ABCEHKMOPTXY',
                         help='ocr alphabet')
 
@@ -63,7 +64,7 @@ if __name__ == '__main__':
     )
 
     cap = cv2.VideoCapture(
-      f"uridecodebin uri=file:///content/drive/MyDrive/course_to_middle/test_images_videos/driving_out_30sec.mp4  ! videoconvert ! video/x-raw, format=BGRx, width=1280, height=720 ! videoconvert ! video/x-raw, format=BGR ! appsink sync=False", 
+      f"uridecodebin uri=file://" + opt.input_video + f"  ! videoconvert ! video/x-raw, format=BGRx, width=1280, height=720 ! videoconvert ! video/x-raw, format=BGR ! appsink sync=False", 
       cv2.CAP_GSTREAMER
     )
 
@@ -73,7 +74,7 @@ if __name__ == '__main__':
     height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)  # float `height`
 
     cap_write = cv2.VideoWriter(
-        f'/content/drive/MyDrive/course_to_middle/test_images_videos/driving_out_30sec_result.mp4',
+        f'' + opt.output_video,
         cv2.VideoWriter_fourcc(*'avc1'),
         float(round(fps)),
         (int(736), int(512)),
